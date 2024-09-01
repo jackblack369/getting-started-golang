@@ -54,3 +54,47 @@ func TestTitle(t *testing.T) {
 	res := strings.Title(s)
 	fmt.Println(res)
 }
+
+func TestCountVowel(t *testing.T) {
+	s := "hello world"
+	countVowel(s)
+}
+
+func countVowel(s string) {
+	vowels := "aeiou"
+	count := 0
+	for _, c := range s {
+		if strings.ContainsRune(vowels, c) {
+			count++
+		}
+	}
+	fmt.Println(count)
+}
+
+func TestDANStrant(t *testing.T) {
+	dna := "ATTGC"
+	res := DNAStrand(dna)
+	fmt.Println("res:", res)
+}
+
+func DNAStrand(dna string) string {
+	// A -> T, T -> A, C -> G, G -> C
+	// dna = "ATTGC" => "TAACG"
+	// dna = "GTAT" => "CATA"
+	fmt.Println("dna:", dna)
+	res := strings.Map(func(r rune) rune {
+		switch r {
+		case 'A':
+			return 'T'
+		case 'T':
+			return 'A'
+		case 'C':
+			return 'G'
+		case 'G':
+			return 'C'
+		}
+		return r
+	}, dna)
+	fmt.Println("map DNA:", res)
+	return res
+}
