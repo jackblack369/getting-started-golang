@@ -101,3 +101,116 @@ func DiceScore(dice [5]int) int {
 	}
 	return res
 }
+
+func TestPerimeter(t *testing.T) {
+	res := Perimeter(5)
+	fmt.Println("res is ", res)
+}
+
+func Perimeter(n int) int {
+	cal_array := make([]int, n+1)
+	for i := 0; i <= n; i++ {
+		if i == 0 || i == 1 {
+			cal_array[i] = 1
+		} else {
+			cal_array[i] = cal_array[i-1] + cal_array[i-2]
+		}
+	}
+	fmt.Println("cal_array is ", cal_array)
+	sum_res := 0
+	for _, v := range cal_array {
+		sum_res += v
+	}
+
+	perimeter := sum_res * 4
+	return perimeter
+}
+
+func TestRGB(t *testing.T) {
+	res := RGB(254, 253, 252)
+	fmt.Println("res is ", res)
+}
+
+func RGB(r, g, b int) string {
+	//convert the decimal number to hexadecimal
+	res := ConvertHex(r) + ConvertHex(g) + ConvertHex(b)
+	return res
+}
+
+func TestConvertHex(t *testing.T) {
+	res := ConvertHex(254)
+	fmt.Println("res is ", res)
+}
+
+func ConvertHex(n int) string {
+	// convert the decimal number to hexadecimal
+	// if the number is less than 0, return 0
+	// if the number is greater than 255, return 255
+	// if the number is less than 16, return 0 + hexadecimal
+	// else return hexadecimal
+	if n < 0 {
+		return "00"
+	} else if n > 255 {
+		return "FF"
+	} else if n < 16 {
+		return fmt.Sprintf("0%X", n)
+	} else {
+		// convert the decimal number to hexadecimal
+		return fmt.Sprintf("%X", n)
+	}
+}
+
+func Str2Array(temp string) []string {
+	numArray := []rune(temp)
+	res := make([]string, len(numArray))
+	for i, v := range numArray {
+		res[i] = string(v)
+	}
+	return res
+}
+
+func TestValidBraces(t *testing.T) {
+	res := ValidBraces("{}{}()[{}]{{}}(){()}") // {([])}
+	fmt.Println("res is ", res)
+}
+
+func ValidBraces(str string) bool {
+	stack := []rune{}
+	pairs := map[rune]rune{
+		')': '(',
+		']': '[',
+		'}': '{',
+	}
+
+	for _, char := range str {
+		switch char {
+		case '(', '[', '{':
+			stack = append(stack, char)
+		case ')', ']', '}':
+			if len(stack) == 0 || stack[len(stack)-1] != pairs[char] {
+				return false
+			}
+			stack = stack[:len(stack)-1]
+		}
+	}
+
+	return len(stack) == 0
+}
+
+func TestMultiplicationTable(t *testing.T) {
+	res := MultiplicationTable(4)
+	fmt.Println("res is ", res)
+}
+
+func MultiplicationTable(size int) [][]int {
+	res := make([][]int, size)
+	// locate row num which will used to add the value
+	for i := 0; i < size; i++ {
+		res[i] = make([]int, size)
+		for j := 0; j < size; j++ {
+			res[i][j] = (j + 1) * (i + 1)
+		}
+		fmt.Printf("res[%d] is %v", i, res[i])
+	}
+	return res
+}
