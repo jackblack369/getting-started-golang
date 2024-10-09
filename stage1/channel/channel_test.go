@@ -1,6 +1,9 @@
-package main
+package channel
 
-import "fmt"
+import (
+	"fmt"
+	"testing"
+)
 
 func channel1() {
 	ch1 := make(chan int)
@@ -17,6 +20,10 @@ func channel1() {
 	fmt.Println("The first element:", elem1, "\nThe second element received from channel ch1:", elem2, "\nThe third element received from channel ch1:", elem3)
 }
 
+func TestCHN1(t *testing.T) {
+	channel1()
+}
+
 func channel2() {
 	ch1 := make(chan int, 3)
 	ch1 <- 2
@@ -27,6 +34,10 @@ func channel2() {
 	elem3 := <-ch1
 
 	fmt.Println("The first element:", elem1, "\nThe second element received from channel ch1:", elem2, "\nThe third element received from channel ch1:", elem3)
+}
+
+func TestCHN2(t *testing.T) {
+	channel2()
 }
 
 func channel3() {
@@ -48,33 +59,42 @@ func channel3() {
 
 }
 
-func channel4() {
-	ch1 := make(chan int, 3)
-	ch1 <- 2
-	ch1 <- 1
-	ch1 <- 3
-	close(ch1)
+func TestCHN3(t *testing.T) {
+	channel3()
+}
 
-	for {
-		select {
-		case elem, ok := <-ch1:
-			if !ok {
-				return // 通道关闭，退出循环
-			}
-			fmt.Println("Received element:", elem)
-		default:
-			fmt.Println("No element received from channel ch1")
-		}
+func producer(ch chan int) {
+	ch <- 42
+	close(ch)
+}
+
+func consumer(ch chan int) {
+	for v := range ch {
+		fmt.Println(v)
 	}
 }
 
-func main() {
-	println("=====channel1=====")
-	channel1()
-	println("=====channel2=====")
-	channel2()
-	println("=====channel3=====")
-	channel3()
-	println("=====channel4=====")
-	channel4()
+func TestProCon(t *testing.T) {
+	ch := make(chan int)
+	go producer(ch)
+	consumer(ch)
+}
+
+func sum(s []int, c chan int) {
+	sum := 0
+	for _, v := range s {
+		sum += v
+	}
+	c <- sum // send sum to c
+}
+
+func TestSum(t *testing.T) {
+	s := []int{7, 2, 8, -9, 4, 0}
+
+	c := make(chan int)
+	go sum(s[:len(s)/2], c)
+	go sum(s[len(s)/2:], c)
+	x, y := <-c, <-c // receive from c
+
+	fmt.Println(x, y, x+y)
 }

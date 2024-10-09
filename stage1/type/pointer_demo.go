@@ -1,4 +1,4 @@
-package stage1
+package _type
 
 import "fmt"
 

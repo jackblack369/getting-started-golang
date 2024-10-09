@@ -1,4 +1,4 @@
-package stage1
+package structure
 
 type Animal struct {
 	scientificName string // 学名。
