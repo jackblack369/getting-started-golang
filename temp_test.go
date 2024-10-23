@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 	"testing"
+	"time"
 )
 
 func TestCode(t *testing.T) {
@@ -49,4 +50,11 @@ func Test1(t *testing.T) {
 	for host, container := range parsedPaths {
 		fmt.Printf("Host: %s -> Container: %s\n", host, container)
 	}
+}
+
+func TestTimer(t *testing.T) {
+	for t := range time.Tick(1 * time.Second) {
+		fmt.Println(t)
+	}
+
 }
