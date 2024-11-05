@@ -40,7 +40,7 @@ func TestHomeDir(t *testing.T) {
 
 func TestFileUploader(t *testing.T) {
 	ctx := context.Background()
-	endpoint := "172.20.7.232:9000"
+	endpoint := "172.20.7.232:29000"
 	accessKeyID := "minioadmin"
 	secretAccessKey := "minioadmin"
 	useSSL := false

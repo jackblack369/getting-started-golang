@@ -52,9 +52,26 @@ func Test1(t *testing.T) {
 	}
 }
 
-func TestTimer(t *testing.T) {
+func TestTimerSchedule(t *testing.T) {
+	// schedule a task to run every second
 	for t := range time.Tick(1 * time.Second) {
 		fmt.Println(t)
 	}
+}
 
+func TestTimerFormat(t *testing.T) {
+
+	defaultName := "gateway-" + time.Now().Format("20060102150405")
+	fmt.Println(defaultName)
+
+}
+
+func TestTrim(t *testing.T) {
+	original := "/curvefs/client/mnt/mnt/test3"
+	prefix := "/curvefs/client/mnt"
+
+	// Remove the prefix
+	extracted := strings.TrimPrefix(original, prefix)
+
+	fmt.Println(extracted) // Output: /mnt/test3
 }
