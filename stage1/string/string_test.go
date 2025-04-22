@@ -2,6 +2,7 @@ package string
 
 import (
 	"fmt"
+	"path"
 	"regexp"
 	"strings"
 	"testing"
@@ -97,4 +98,26 @@ func DNAStrand(dna string) string {
 	}, dna)
 	fmt.Println("map DNA:", res)
 	return res
+}
+
+func TestEmpty(t *testing.T) {
+	dataMap := map[string](string){
+		"name": "jack",
+	}
+
+	res := strings.TrimSpace(dataMap["gender"])
+	fmt.Println("res:", res)
+
+}
+
+func TestSlice(t *testing.T) {
+	podName := "dingofs-sd-shangdi-ceph17-pvc-cc5cb2f5-e6fb-4a31-9476-6d16dedbc607-foogee"
+	words := podName[len(podName)-6:]
+	fmt.Println(words)
+}
+
+func TestPath(t *testing.T) {
+	rootDir := "/Users/dongwei/.dingoadm/"
+	dataDir := "sqlite://" + path.Join(rootDir, "data")
+	fmt.Println(dataDir)
 }

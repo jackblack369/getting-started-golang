@@ -75,3 +75,14 @@ func TestTrim(t *testing.T) {
 
 	fmt.Println(extracted) // Output: /mnt/test3
 }
+
+func TestAppend(t *testing.T) {
+	// Append elements to a slice
+	var numbers []string
+	numbers = append(numbers, "a")
+	numbers = append(numbers, "b", "c")
+	fmt.Println(numbers) // Output: [1 2 3 4]
+
+	resStr := strings.Join(numbers, "")
+	fmt.Println(resStr)
+}
