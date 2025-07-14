@@ -1,14 +1,16 @@
-package main
+package pkgmpb
 
 import (
-	"github.com/vbauerster/mpb/v8"
 	"math/rand"
+	"testing"
 	"time"
+
+	"github.com/vbauerster/mpb/v8"
 
 	"github.com/vbauerster/mpb/v8/decor"
 )
 
-func main() {
+func test1(t *testing.T) {
 	// initialize progress container, with custom width
 	p := mpb.New(mpb.WithWidth(64))
 

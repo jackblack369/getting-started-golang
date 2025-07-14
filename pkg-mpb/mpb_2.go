@@ -1,15 +1,17 @@
-package main
+package pkgmpb
 
 import (
 	"fmt"
-	"github.com/vbauerster/mpb/v8"
-	"github.com/vbauerster/mpb/v8/decor"
 	"math/rand"
 	"sync"
+	"testing"
 	"time"
+
+	"github.com/vbauerster/mpb/v8"
+	"github.com/vbauerster/mpb/v8/decor"
 )
 
-func main() {
+func test2(t *testing.T) {
 
 	var wg sync.WaitGroup
 	// passed wg will be accounted at p.Wait() call
